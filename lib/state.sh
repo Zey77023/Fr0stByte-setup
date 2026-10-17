@@ -1,5 +1,7 @@
 #!/bin/bash
 
+# TODO: Cleanup this file and make it more maintainable
+
 # Shared installer state. Stages may update these values as resources are
 # created; cleanup only acts on resources registered by this installer run.
 : "${TARGET_MNT:=/mnt}"
@@ -15,16 +17,16 @@
 : "${LUKS_UUID:=}"
 : "${INSTALLER_STATE_FILE:=/run/fr0stbyte-installer.state}"
 
-export TARGET_MNT 
-export LUKS_NAME 
-export MAPPER_DEV 
-export EFI_UUID 
-export LINUX_FS_UUID 
-export BOOT_LABEL 
-export ROOT_LABEL 
-export TARGET_DISK 
-export TARGET_BOOT 
-export TARGET_ROOT 
+export TARGET_MNT
+export LUKS_NAME
+export MAPPER_DEV
+export EFI_UUID
+export LINUX_FS_UUID
+export BOOT_LABEL
+export ROOT_LABEL
+export TARGET_DISK
+export TARGET_BOOT
+export TARGET_ROOT
 export LUKS_UUID
 export INSTALLER_STATE_FILE
 

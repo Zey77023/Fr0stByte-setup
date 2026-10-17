@@ -11,8 +11,12 @@ efibootmgr
 limine
 cryptsetup
 networkmanager
+networkmanager-openvpn
+nss-mdns
 rate-mirrors
 pipewire
+pipewire-pulse
+pipewire-jack
 wireplumber
 sof-firmware
 ufw
@@ -21,5 +25,7 @@ util-linux
 man
 sudo
 rsync
+ripgrep
+fzf
 xdg-user-dirs
 zram-generator

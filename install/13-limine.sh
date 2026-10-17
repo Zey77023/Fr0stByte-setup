@@ -1,5 +1,9 @@
 #!/bin/bash
 
+# TODO: Configure limine so that it will only display menu if any key is pressed
+# TODO: during the boot process. Otherwise, it should boot the default entry
+# TODO: After a 1 second timeout
+
 debug_msg "Starting Limine bootloader stage"
 
 status_msg "Setting up Limine..."
