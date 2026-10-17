@@ -19,6 +19,8 @@ mapfile -t AVAILABLE_LOCALES < <(
 
 [[ ${#AVAILABLE_LOCALES[@]} -gt 0 ]] || { error_msg "No UTF-8 locales found in $LOCALE_GEN."; exit 1; }
 
+# TODO: Add a default locale in case the user cancels the selection or selects nothing
+# TODO: For now, we will default to en_US.UTF-8 if available
 # Prompt user to select locales to generate
 SELECTED_LOCALES=()
 if SELECTION=$(printf '%s\n' "${AVAILABLE_LOCALES[@]}" |

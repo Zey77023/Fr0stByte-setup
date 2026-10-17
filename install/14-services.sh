@@ -48,12 +48,15 @@ success_msg "Zram-generator configured at $ZRAM_CONF ($ZRAM_SIZE, $ZRAM_COMPRESS
 
 if gum confirm "Install optional hardware and performance diagnostic tools?" --default=no; then
     DIAGNOSTIC_LIST="$INSTALLER_ROOT/optional-diagnostic-packages"
-    load_pkglist "$DIAGNOSTIC_LIST"
-    chroot_exec pacman -S --needed --noconfirm "${PKGS[@]}"
+    install_packages_from_list_in_chroot "$DIAGNOSTIC_LIST"
     success_msg "Optional diagnostic tools installed"
 else
     status_msg "Optional diagnostic tools not installed"
 fi
+
+# TODO: Make a dedicated subvol for swapfile, it has to be nodatacow and disabled compression. Then use the btrfs tool to create a new swapfile.
+# TODO: Chmod it to 600 and then add it to ftsab with priority set to -1.
+# TODO: Setup for hybrid sleep is required when using NVIDIA GPU.
 
 # Swap file for hibernation
 status_msg "Configuring swap file for hibernation..."

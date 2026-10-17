@@ -1,0 +1,71 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "WSL: Shutdown ArchDev",
+            "type": "shell",
+            "command": "wsl -t ArchDev",
+            "presentation": {
+                "reveal": "always",
+                "panel": "shared"
+            },
+            "problemMatcher": [],
+            "detail": "Gracefully terminates only the ArchDev WSL instance."
+        },
+        {
+            "label": "WSL: Import ArchDev",
+            "type": "shell",
+            "command": "wsl --import ArchDev \"$env:USERPROFILE\\WSL2\\ArchDev\" \"$env:USERPROFILE\\WSL2\\Pristine\\arch-base.tar.gz\" --version 2",
+            "presentation": {
+                "reveal": "always",
+                "panel": "shared"
+            },
+            "problemMatcher": [],
+            "detail": "Imports ArchDev from the Pristine rootfs tarball."
+        },
+        {
+            "label": "WSL: Export Baseline",
+            "type": "shell",
+            "dependsOn": [
+                "WSL: Shutdown ArchDev"
+            ],
+            "command": "wsl --export ArchDev \"$env:USERPROFILE\\WSL2\\Exports\\archdev-export-$(Get-Date -Format 'yyyyMMdd-HHmmss').tar.gz\"",
+            "presentation": {
+                "reveal": "always",
+                "panel": "shared"
+            },
+            "problemMatcher": [],
+            "detail": "Exports the current state of ArchDev to a tarball."
+        },
+        {
+            "label": "WSL: Unregister and Cleanup",
+            "type": "shell",
+            "dependsOn": [
+                "WSL: Shutdown ArchDev"
+            ],
+            "command": "wsl --unregister ArchDev; if (Test-Path \"$env:USERPROFILE\\WSL2\\ArchDev\") { Remove-Item -Recurse -Force \"$env:USERPROFILE\\WSL2\\ArchDev\" }",
+            "presentation": {
+                "reveal": "always",
+                "panel": "shared"
+            },
+            "problemMatcher": [],
+            "detail": "Unregisters the ArchDev instance and deletes the ArchDev directory."
+        },
+        {
+            "label": "WSL: Reset to Clean State",
+            "type": "shell",
+            "dependsOn": [
+                "WSL: Unregister and Cleanup",
+                "WSL: Import ArchDev"
+            ],
+            "dependsOrder": "sequence",
+            "command": "Write-Host 'ArchDev has been successfully reset to its pristine state!' -ForegroundColor Green",
+            "presentation": {
+                "reveal": "always",
+                "panel": "shared"
+            },
+            "problemMatcher": [],
+            "detail": "Wipes the current state via unregister/cleanup, then re-imports a fresh copy from Pristine."
+        }
+    ]
+}

@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# TODO: limine-mkinitcpio-hook depends on having chaotic-aur enabled
+# TODO: so keep is so that chaotic aur is enabled by default
+
 debug_msg "Starting pacman configuration stage"
 
 status_msg "Configuring pacman with official repositories..."

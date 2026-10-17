@@ -1,0 +1,12 @@
+{
+    // "terminal.integrated.defaultProfile.windows": "ArchDev",
+    // "terminal.integrated.profiles.windows": {
+    //     "ArchDev": {
+    //         "path": "C:\\WINDOWS\\System32\\wsl.exe",
+    //         "args": [
+    //             "--distribution",
+    //             "ArchDev"
+    //         ]
+    //     }
+    // }
+}

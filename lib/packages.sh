@@ -27,9 +27,18 @@ load_pkglist() {
 cpu_microcode_img() {
     debug_msg "Detecting CPU microcode image path"
     case "$("$INSTALLER_UTILS/get-cpu-vendor.sh")" in
-        intel) echo "/boot/intel-ucode.img"; debug_msg "Intel CPU detected" ;;
-        amd)   echo "/boot/amd-ucode.img"; debug_msg "AMD CPU detected" ;;
-        *)     debug_msg "Unknown CPU vendor"; return 1 ;;
+    intel)
+        echo "/boot/intel-ucode.img"
+        debug_msg "Intel CPU detected"
+        ;;
+    amd)
+        echo "/boot/amd-ucode.img"
+        debug_msg "AMD CPU detected"
+        ;;
+    *)
+        debug_msg "Unknown CPU vendor"
+        return 1
+        ;;
     esac
 }
 
@@ -59,6 +68,22 @@ install_packages_from_list() {
     success_msg "Package installation complete"
 }
 
+install_packages_from_list_in_chroot() {
+    local list_file="$1"
+    debug_msg "Installing packages from list to chroot: $list_file"
+    load_pkglist "$list_file" || return 1
+
+    if [[ ${#PKGS[@]} -eq 0 ]]; then
+        warn_msg "No packages found in $list_file"
+        return 0
+    fi
+
+    debug_msg "Installing ${#PKGS[@]} packages to chroot: ${PKGS[*]}"
+    status_msg "Installing packages to chroot..."
+    chroot_exec pacman -S --needed --noconfirm "${PKGS[@]}"
+    success_msg "Package installation to chroot complete"
+}
+
 add_cpu_microcode() {
     debug_msg "Detecting CPU vendor for microcode package"
     local vendor
@@ -66,9 +91,18 @@ add_cpu_microcode() {
     debug_msg "CPU vendor detected: $vendor"
 
     case "$vendor" in
-        intel) PKGS+=(intel-ucode); debug_msg "Added intel-ucode to package list" ;;
-        amd)   PKGS+=(amd-ucode); debug_msg "Added amd-ucode to package list" ;;
-        *)     error_msg "Unsupported or unknown CPU vendor; refusing to install without microcode"; return 1 ;;
+    intel)
+        PKGS+=(intel-ucode)
+        debug_msg "Added intel-ucode to package list"
+        ;;
+    amd)
+        PKGS+=(amd-ucode)
+        debug_msg "Added amd-ucode to package list"
+        ;;
+    *)
+        error_msg "Unsupported or unknown CPU vendor; refusing to install without microcode"
+        return 1
+        ;;
     esac
 }
 

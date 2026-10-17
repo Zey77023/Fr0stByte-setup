@@ -28,7 +28,11 @@ debug_msg "Detected RAM: ${RAM_KB}KB (${RAM_GB}GB)"
 
 if ((RAM_GB < 1)); then
     error_msg "Less than 1GB RAM; installation may fail"
-    gum confirm "Continue anyway?" || exit 1
+
+    read -p "Continue anyway? [y/N] " -n 1 -r
+    echo
+    [[ $REPLY =~ ^[Yy]$ ]] || exit 1
+
     warn_msg "Proceeding with less than 1GB RAM"
 elif ((RAM_GB < 2)); then
     status_msg "Less than 2GB RAM; installation may be slow"
