@@ -1,0 +1,36 @@
+# Fr0stByte installer — default options configuration
+# NOTE: Values may also be overridden with `./install.sh --profile <file>`.
+
+# --- warning confirmation overrides ----------------------------------------------------
+low_ram_continue=no
+
+# --- interactive picker overrides ------------------------------------------------------
+# Pre-selections for the interactive pickers. Prompts will be shown when variables don't have value.
+defaults_layout=
+defaults_locale=
+defaults_timezone=
+
+# --- encrypted-keys backup overrides ---------------------------------------------------
+# The LUKS header backup is saved on the ESP ($TARGET_MNT/boot/<uuid>.luks-header)
+# once the hierarchy is mounted. Back it up to another location in a safe place after
+# installation is completed.
+luks_header_backup=yes
+
+# --- package installation overrides ----------------------------------------------------
+fonts_install=no
+diagnostics_install=no
+
+# --- snapper snapshots for pacman opertations overrides --------------------------------
+snap_pac=yes
+
+# --- performance tweaks overrides ------------------------------------------------------
+perf_swappiness=no
+perf_page_cluster=no
+perf_bbr=no
+perf_trim=yes
+perf_low_latency_audio=no
+perf_journald_limits=no
+
+# --- hibernation default overrides ----------------------------------------------------
+# HibernateDelaySec for systemd suspend-then-hibernate.
+hybrid_sleep_delay=30min

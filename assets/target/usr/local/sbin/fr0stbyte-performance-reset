@@ -1,0 +1,12 @@
+#!/bin/bash
+
+set -eu
+
+rm -f /etc/fr0stbyte/performance.conf
+rm -f /etc/sysctl.d/60-fr0stbyte-swappiness.conf
+rm -f /etc/sysctl.d/61-fr0stbyte-page-cluster.conf
+rm -f /etc/sysctl.d/62-fr0stbyte-bbr.conf
+rm -f /etc/pipewire/pipewire.conf.d/00-fr0stbyte-performance.conf
+rm -f /etc/systemd/journald.conf.d/00-fr0stbyte-performance.conf
+sysctl --system
+printf 'Fr0stByte performance profile reset.\n'

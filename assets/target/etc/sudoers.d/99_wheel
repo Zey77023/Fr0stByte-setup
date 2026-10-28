@@ -1,0 +1,2 @@
+Defaults rootpw
+%wheel ALL=(ALL:ALL) ALL

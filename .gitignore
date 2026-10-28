@@ -1,1 +1,5 @@
 *.log
+*.luks-header
+install.journal
+config/defaults.conf
+tests/out/
