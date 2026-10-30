@@ -1,0 +1,8 @@
+# ! Do not change order of rules
+* text=auto
+*.sh text eol=lf
+*.bats text eol=lf
+lib/pkg/lists/* text eol=lf
+tests/** text eol=lf
+install.log binary
+tests/out/** binary

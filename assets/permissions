@@ -1,0 +1,11 @@
+# Asset permissions table.
+# Format: <mode>TAB<relpath> — one row per file under assets/target.
+# Rows without TAB are ignored; missing rows default to 0644 (files_apply).
+0755	usr/local/sbin/fr0stbyte-performance-reset
+0440	etc/sudoers.d/99_wheel
+0644	etc/fonts/local.conf
+0644	etc/sysctl.d/60-fr0stbyte-swappiness.conf
+0644	etc/sysctl.d/61-fr0stbyte-page-cluster.conf
+0644	etc/sysctl.d/62-fr0stbyte-bbr.conf
+0644	etc/pipewire/pipewire.conf.d/00-fr0stbyte-performance.conf
+0644	etc/systemd/journald.conf.d/00-fr0stbyte-performance.conf

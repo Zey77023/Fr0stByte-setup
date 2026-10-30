@@ -1,1 +1,11 @@
+# Project generated files
 *.log
+*.luks-header
+install.journal
+
+# Project configuration file which is not used for dist
+config/defaults.conf
+
+# Only keep readme.md files in the project root and ignore other md files from project root
+/*.md
+!readme.md
