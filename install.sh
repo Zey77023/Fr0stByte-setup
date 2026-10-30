@@ -8,7 +8,6 @@ set -euEo pipefail
 
 # --- Installer anchors ---
 INSTALLER_ROOT=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" &>/dev/null && pwd)
-INSTALLER_UTILS="$INSTALLER_ROOT/util"
 INSTALLER_LIB="$INSTALLER_ROOT/lib"
 
 export FR0ST_LIB_ROOT="$INSTALLER_LIB"
