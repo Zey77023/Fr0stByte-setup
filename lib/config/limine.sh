@@ -67,15 +67,19 @@ limine::hidden_menu() {
     local conf="$mnt/boot/limine.conf"
 
     limine::__limine_conf_gate "$conf" || return 1
-    grep -qx 'timeout: 1' "$conf" 2>/dev/null \
-        || exec_cmd tee -a "$conf" >/dev/null <<EOS
 
-timeout: 1
-EOS
-    grep -qx 'quiet: yes' "$conf" 2>/dev/null \
-        || exec_cmd tee -a "$conf" >/dev/null <<EOS
-quiet: yes
-EOS
+    if grep -qE '^[[:space:]]*timeout:' "$conf"; then
+        exec_cmd sed -i 's/^[[:space:]]*timeout:.*/timeout: 1/' "$conf"
+    else
+        exec_cmd sed -i '1i timeout: 1' "$conf"
+    fi
+
+    if grep -qE '^[[:space:]]*#*[[:space:]]*quiet:' "$conf"; then
+        exec_cmd sed -i 's/^[[:space:]]*#*[[:space:]]*quiet:.*/quiet: yes/' "$conf"
+    else
+        exec_cmd sed -i '1i quiet: yes' "$conf"
+    fi
+
     debug_msg "limine: hidden-menu directives present in $conf"
     return 0
 }

@@ -36,7 +36,7 @@ request_password() {
             continue
         fi
         debug_msg "Password for $label accepted"
-        printf '%s\n' "$pass"
+        printf '%s' "$pass"
         return 0
     done
 
@@ -60,7 +60,7 @@ secret::request() {
         return 1
     }
     chmod 600 "$target_path"
-    if ! printf '%s\n' "$secret_pwd" >"$target_path"; then
+    if ! printf '%s' "$secret_pwd" >"$target_path"; then
         error_msg "Could not write the passfile"
         secret::shred "$target_path"
         unset secret_pwd
