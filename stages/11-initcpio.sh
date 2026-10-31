@@ -25,18 +25,6 @@ run_stage() {
     initramfs::configure "$TARGET_MNT" st_modules st_binaries st_hooks ||
         return 1
 
-    if [[ ${FR0ST_DRYRUN:-0} != "1" ]] &&
-        pkg::is_installed "$TARGET_MNT" "nvidia-open-dkms"; then
-        detect::nvidia_modules_present "$TARGET_MNT" || {
-            error_msg "nvidia-open-dkms is installed but produced no kernel modules"
-            return 1
-        }
-        local -a st_nvidia_modules=(nvidia nvidia_modeset nvidia_uvm nvidia_drm)
-        initramfs::configure "$TARGET_MNT" st_nvidia_modules st_binaries st_hooks ||
-            return 1
-        status_msg "Added NVIDIA modules for early KMS"
-    fi
-
     initramfs::rebuild "$TARGET_MNT" || return 1
 
     state_set "initramfs/done" "done"
